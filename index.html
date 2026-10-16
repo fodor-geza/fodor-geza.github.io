@@ -41,6 +41,7 @@
     --tint2: #e3eff0;
     --band: #1b2130;
     --on-band: #f5f5f3;
+    --band-accent: #de7b8a; /* a sötét sávon (Kapcsolat) a sötét séma kiemelőszíne olvasható */
     --shadow: 0 1px 2px rgba(27, 33, 48, .05), 0 14px 34px -16px rgba(27, 33, 48, .22);
 
     --f-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -276,9 +277,9 @@
   /* kapcsolat */
   .contact { background: var(--band); color: var(--on-band); }
   .contact .wrap { padding-block: 96px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
-  .contact .label { color: var(--accent); }
+  .contact .label { color: var(--band-accent); }
   .contact h2 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 300; margin-block: 14px 18px; }
-  .contact h2 em { color: var(--accent); }
+  .contact h2 em { color: var(--band-accent); }
   .contact p { opacity: .78; max-width: 44ch; }
   .channels { list-style: none; margin: 0; padding: 0; display: grid; min-width: 0; }
   .channel {
