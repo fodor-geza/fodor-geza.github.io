@@ -133,7 +133,8 @@
   .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
   .btn-ghost { color: var(--ink); }
   .btn-ghost:hover { background: var(--ink); color: var(--bg); }
-  .btn svg { width: 17px; height: 17px; }
+  /* optikai igazítás: a LinkedIn-logó tömege alul van, ezért kicsit feljebb tesszük, hogy a felirattal egy vonalban hasson */
+  .btn svg { width: 17px; height: 17px; transform: translateY(-1.5px); }
 
   .portrait { position: relative; margin: 0; min-width: 0; justify-self: center; width: 100%; max-width: 270px; }
   .portrait::before {
