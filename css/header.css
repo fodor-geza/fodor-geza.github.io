@@ -1,0 +1,37 @@
+/* ============================================================
+   FEJLÉC
+   Görgetéskor is fent maradó sáv a névvel, a menüvel,
+   a HU/EN nyelvválasztóval és a világos/sötét gombbal.
+   ============================================================ */
+
+/* fejléc */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 16px; }
+.brand { font-family: var(--f-display); font-size: 1.2rem; text-decoration: none; letter-spacing: .01em; }
+.nav { display: flex; gap: 28px; }
+.nav a { text-decoration: none; font-size: .92rem; color: var(--muted); position: relative; transition: color .2s; }
+.nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 1px; background: var(--accent); transition: right .25s ease; }
+.nav a:hover { color: var(--ink); }
+.nav a:hover::after { right: 0; }
+.top-right { display: flex; align-items: center; gap: 24px; }
+.lang { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.lang button {
+  font: 600 .75rem var(--f-body); letter-spacing: .08em; padding: 5px 11px; border: 0; border-radius: 999px;
+  background: transparent; color: var(--muted); cursor: pointer; transition: background .2s, color .2s;
+}
+.lang button:hover { color: var(--ink); }
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.theme-btn {
+  width: 34px; height: 34px; flex: none; display: grid; place-items: center; padding: 0; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--ink);
+  transition: background .2s, color .2s, border-color .2s;
+}
+.theme-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+.theme-btn svg { width: 17px; height: 17px; }
+.theme-btn svg[hidden] { display: none; }
+.settings { display: flex; align-items: center; gap: 10px; }

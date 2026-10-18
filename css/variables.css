@@ -1,0 +1,35 @@
+/* ============================================================
+   SZÍNEK ÉS BETŰTÍPUSOK (design tokenek)
+   Minden szín és betűtípus itt van egy helyen, CSS-változóként.
+   A többi fájl csak ezekre a változókra hivatkozik (var(--…)), így
+   egy szín cseréjéhez elég itt átírni.
+   Sötét mód: a <html data-theme="dark"> attribútum felülírja a változókat.
+   ============================================================ */
+
+/* Layout: visszafogott, elegáns önéletrajz-oldal. Hűvös papírfehér, mély tintakék, egyetlen bordó kiemelés (a fotón látható nyakkendő színe). */
+:root {
+  --bg: #f5f5f3;
+  --surface: #ffffff;
+  --ink: #1b2130;
+  --muted: #5e6472;
+  --line: #dcdcd6;
+  --accent: #8c1d2f;
+  --accent2: #2c6e74;
+  --tint: #f3e6e8;
+  --tint2: #e3eff0;
+  --band: #1b2130;
+  --on-band: #f5f5f3;
+  --band-accent: #de7b8a; /* a sötét sávon (Kapcsolat) a sötét séma kiemelőszíne olvasható */
+  --shadow: 0 1px 2px rgba(27, 33, 48, .05), 0 14px 34px -16px rgba(27, 33, 48, .22);
+
+  --f-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --f-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+}
+/* A világos az alapértelmezett minden eszközön; sötét csak a látogató saját választására (data-theme="dark"). */
+:root[data-theme="dark"] {
+  --bg: #121418; --surface: #1a1d23; --ink: #ebe9e4; --muted: #a2a5ad;
+  --line: #2c3038; --accent: #de7b8a; --accent2: #6fc0c4; --tint: #2e1f24; --tint2: #1b2c2e;
+  --band: #1f232b; --on-band: #ebe9e4;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 16px 36px -16px rgba(0,0,0,.6);
+  color-scheme: dark;
+}

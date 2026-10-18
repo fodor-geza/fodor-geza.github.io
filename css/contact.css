@@ -1,0 +1,29 @@
+/* ============================================================
+   KAPCSOLAT ÉS LÁBLÉC
+   Sötét sáv az e-maillel (másolás gombbal), a LinkedInnel és a helyszínnel.
+   ============================================================ */
+
+/* kapcsolat */
+.contact { background: var(--band); color: var(--on-band); }
+.contact .wrap { padding-block: 96px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+.contact .label { color: var(--band-accent); }
+.contact h2 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 300; margin-block: 14px 18px; }
+.contact h2 em { font-style: normal; color: var(--band-accent); }
+.contact p { opacity: .78; max-width: 44ch; }
+.channels { list-style: none; margin: 0; padding: 0; display: grid; min-width: 0; }
+.channel {
+  display: grid; grid-template-columns: 7rem 1fr auto; align-items: baseline; gap: 16px;
+  padding-block: 18px; border-bottom: 1px solid color-mix(in srgb, var(--on-band) 18%, transparent);
+}
+.channel:first-child { border-top: 1px solid color-mix(in srgb, var(--on-band) 18%, transparent); }
+.channel small { font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; opacity: .6; }
+.channel .val { font: 400 1.2rem var(--f-display); overflow-wrap: anywhere; min-width: 0; text-decoration: none; }
+.channel a.val:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mini {
+  font: 500 .85rem var(--f-body); padding: 6px 14px; border-radius: 8px; cursor: pointer; white-space: nowrap;
+  background: transparent; color: var(--on-band); border: 1px solid color-mix(in srgb, var(--on-band) 35%, transparent);
+  text-decoration: none; transition: background .2s, color .2s;
+}
+.mini:hover { background: var(--on-band); color: var(--band); }
+
+footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 24px; color: var(--muted); font-size: .88rem; }

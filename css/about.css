@@ -1,0 +1,15 @@
+/* ============================================================
+   RÓLAM
+   Bemutatkozó szöveg és a jobb oldali adatlap (pozíció, helyszín, …).
+   ============================================================ */
+
+/* rólam */
+.about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; align-items: start; }
+.about-text { min-width: 0; display: grid; gap: 20px; font-size: 1.1rem; max-width: 62ch; }
+
+.spec { min-width: 0; margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 6px 24px; box-shadow: var(--shadow); }
+.spec .row:last-child { border-bottom: 0; }
+.spec .row { display: grid; grid-template-columns: 8.5rem 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.spec dt { font-size: .74rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+.spec dd { margin: 0; min-width: 0; }
+.spec dd small { color: var(--muted); font-size: .9rem; }

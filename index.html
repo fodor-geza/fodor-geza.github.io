@@ -11,327 +11,31 @@
 <meta property="og:locale" content="hu_HU">
 <meta property="og:locale:alternate" content="en_US">
 <meta name="theme-color" content="#f5f5f3">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<script>
-  // A mentett sötét megjelenést még a kirajzolás előtt beállítjuk, hogy ne villanjon fel a világos változat.
-  try { if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
-</script>
-<style>
-  /* Alap-reset (a claude.ai közzétételnél ezt a keret adta hozzá) */
-  :root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
-  body { margin: 0; }
-  img { max-width: 100%; }
-  [hidden] { display: none !important; }
-</style>
 <meta name="description" content="Fodor Géza – Front-End Developer, 25+ év IT- és fejlesztői tapasztalat. Navigációs rendszerek, webalkalmazások, grafika.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- Betűtípusok (Google Fonts): Fraunces a címekhez, Figtree a szöveghez -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Figtree:wght@400;500;600&display=swap">
-<style>
-  /* Layout: visszafogott, elegáns önéletrajz-oldal. Hűvös papírfehér, mély tintakék, egyetlen bordó kiemelés (a fotón látható nyakkendő színe). */
-  :root {
-    --bg: #f5f5f3;
-    --surface: #ffffff;
-    --ink: #1b2130;
-    --muted: #5e6472;
-    --line: #dcdcd6;
-    --accent: #8c1d2f;
-    --accent2: #2c6e74;
-    --tint: #f3e6e8;
-    --tint2: #e3eff0;
-    --band: #1b2130;
-    --on-band: #f5f5f3;
-    --band-accent: #de7b8a; /* a sötét sávon (Kapcsolat) a sötét séma kiemelőszíne olvasható */
-    --shadow: 0 1px 2px rgba(27, 33, 48, .05), 0 14px 34px -16px rgba(27, 33, 48, .22);
 
-    --f-display: "Fraunces", Georgia, "Times New Roman", serif;
-    --f-body: "Figtree", "Segoe UI", system-ui, sans-serif;
-  }
-  /* A világos az alapértelmezett minden eszközön; sötét csak a látogató saját választására (data-theme="dark"). */
-  :root[data-theme="dark"] {
-    --bg: #121418; --surface: #1a1d23; --ink: #ebe9e4; --muted: #a2a5ad;
-    --line: #2c3038; --accent: #de7b8a; --accent2: #6fc0c4; --tint: #2e1f24; --tint2: #1b2c2e;
-    --band: #1f232b; --on-band: #ebe9e4;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 16px 36px -16px rgba(0,0,0,.6);
-    color-scheme: dark;
-  }
+<!-- Stílusok: a sorrend számít, a később betöltött fájl felülírhatja a korábbit -->
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/about.css">
+<link rel="stylesheet" href="css/career.css">
+<link rel="stylesheet" href="css/skills.css">
+<link rel="stylesheet" href="css/contact.css">
+<link rel="stylesheet" href="css/responsive.css">
 
-  *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font: 400 1.0625rem/1.7 var(--f-body);
-    -webkit-font-smoothing: antialiased;
-    transition: background-color .3s ease, color .3s ease;
-  }
-  h1, h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1.1; margin: 0; text-wrap: balance; }
-  p { margin: 0; }
-  a { color: inherit; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-
-  .wrap {
-    max-width: 1080px;
-    margin-inline: auto;
-    padding-left: max(16px, env(safe-area-inset-left, 0px));
-    padding-right: max(16px, env(safe-area-inset-right, 0px));
-  }
-  .label {
-    font-size: .74rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent);
-  }
-
-  /* fejléc */
-  .top {
-    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 16px; }
-  .brand { font-family: var(--f-display); font-size: 1.2rem; text-decoration: none; letter-spacing: .01em; }
-  .nav { display: flex; gap: 28px; }
-  .nav a { text-decoration: none; font-size: .92rem; color: var(--muted); position: relative; transition: color .2s; }
-  .nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 1px; background: var(--accent); transition: right .25s ease; }
-  .nav a:hover { color: var(--ink); }
-  .nav a:hover::after { right: 0; }
-  .top-right { display: flex; align-items: center; gap: 24px; }
-  .lang { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
-  .lang button {
-    font: 600 .75rem var(--f-body); letter-spacing: .08em; padding: 5px 11px; border: 0; border-radius: 999px;
-    background: transparent; color: var(--muted); cursor: pointer; transition: background .2s, color .2s;
-  }
-  .lang button:hover { color: var(--ink); }
-  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
-  .theme-btn {
-    width: 34px; height: 34px; flex: none; display: grid; place-items: center; padding: 0; cursor: pointer;
-    border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--ink);
-    transition: background .2s, color .2s, border-color .2s;
-  }
-  .theme-btn:hover { border-color: var(--accent2); color: var(--accent2); }
-  .theme-btn svg { width: 17px; height: 17px; }
-  .theme-btn svg[hidden] { display: none; }
-  .settings { display: flex; align-items: center; gap: 10px; }
-
-  /* hero */
-  .hero { position: relative; overflow: hidden; padding-block: 72px 64px; }
-  .hero::before {
-    content: ""; position: absolute; z-index: -1; inset: -20% -10% auto auto; width: 620px; height: 620px; border-radius: 50%;
-    background: radial-gradient(circle at 35% 40%, var(--tint2), transparent 62%), radial-gradient(circle at 65% 60%, var(--tint), transparent 60%);
-  }
-  .hero-grid { display: grid; grid-template-columns: 1.5fr .7fr; gap: 64px; align-items: center; }
-  .hero-text { min-width: 0; display: grid; gap: 24px; }
-  h1 { font-size: clamp(3rem, 8vw, 5.4rem); font-weight: 400; letter-spacing: -.02em; line-height: 1; }
-  h1 em { font-style: normal; color: var(--accent); }
-  .lead { color: var(--muted); max-width: 52ch; font-size: 1.12rem; }
-  .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px; border-radius: 12px;
-    font: 500 .95rem var(--f-body); letter-spacing: .02em; text-decoration: none; border: 1px solid var(--ink);
-    transition: background .2s, color .2s;
-  }
-  .btn-primary { background: var(--ink); color: var(--bg); }
-  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
-  .btn-ghost { color: var(--ink); }
-  .btn-ghost:hover { background: var(--ink); color: var(--bg); }
-  /* optikai igazítás: a LinkedIn-logó tömege alul van, ezért kicsit feljebb tesszük, hogy a felirattal egy vonalban hasson */
-  .btn svg { width: 17px; height: 17px; transform: translateY(-1.5px); }
-
-  .portrait { position: relative; margin: 0; min-width: 0; justify-self: center; width: 100%; max-width: 270px; }
-  .portrait::before {
-    content: ""; position: absolute; inset: 12px -12px -12px 12px; border-radius: 20px; z-index: 0;
-    background: linear-gradient(135deg, var(--accent2), var(--accent)); opacity: .85;
-  }
-  .portrait img {
-    position: relative; z-index: 1; display: block; width: 100%; max-width: 100%; height: auto;
-    background: #fff; border-radius: 20px;
-  }
-
-  /* számok */
-  .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid var(--line); }
-  .fact { padding: 28px 24px 26px 0; display: grid; gap: 2px; }
-  .fact + .fact { padding-left: 24px; border-left: 1px solid var(--line); }
-  .fact b { font: 300 clamp(2.2rem, 5vw, 3rem)/1 var(--f-display); font-variant-numeric: lining-nums tabular-nums; }
-  .fact span { color: var(--muted); font-size: .93rem; }
-  .fact:nth-child(1) b { color: var(--accent); }
-  .fact:nth-child(2) b { color: var(--accent2); }
-
-  /* szekciók */
-  section { scroll-margin-top: 80px; }
-  .section { padding-block: 96px; }
-  .sec-head { display: grid; gap: 14px; margin-bottom: 48px; max-width: 640px; }
-  .sec-head h2 { font-size: clamp(2rem, 4.5vw, 2.9rem); letter-spacing: -.01em; }
-
-  /* rólam */
-  .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; align-items: start; }
-  .about-text { min-width: 0; display: grid; gap: 20px; font-size: 1.1rem; max-width: 62ch; }
-
-  .spec { min-width: 0; margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 6px 24px; box-shadow: var(--shadow); }
-  .spec .row:last-child { border-bottom: 0; }
-  .spec .row { display: grid; grid-template-columns: 8.5rem 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-  .spec dt { font-size: .74rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
-  .spec dd { margin: 0; min-width: 0; }
-  .spec dd small { color: var(--muted); font-size: .9rem; }
-
-  /* szakmai út */
-  .career { background: var(--surface); border-block: 1px solid var(--line); }
-  /* idővonal: a sín görgetésre telik meg, az elért állomások jelölője kigyullad */
-  .jobs { --pad: 56px; position: relative; list-style: none; margin: 0; padding: 0 0 0 var(--pad); display: grid; gap: 20px; }
-  .jobs::before { content: ""; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--line); }
-  .rail-fill {
-    position: absolute; left: 11px; top: 8px; width: 2px; height: var(--fill, 0px); border-radius: 2px;
-    background: linear-gradient(to bottom, var(--accent2), var(--accent));
-    transition: height .25s ease-out;
-  }
-  .rail-fill::after {
-    content: ""; position: absolute; left: 50%; bottom: -6px; width: 12px; height: 12px; border-radius: 50%; transform: translateX(-50%);
-    background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 22%, transparent);
-  }
-  .job {
-    display: grid; grid-template-columns: 200px 1fr; gap: 40px;
-    padding: 32px; background: var(--bg); border: 1px solid var(--line); border-radius: 20px;
-    transition: box-shadow .3s ease, border-color .3s ease;
-  }
-  .job:hover { box-shadow: var(--shadow); }
-  .job::before {
-    /* A jelölő a listához (.jobs) igazodik, mint a sín, ezért a kártya kerete nem tolja el:
-       vízszintesen sín közepe (12px) − fél jelölő (8px); függőlegesen a kártya tartalmának tetejéhez képest (top: auto + margin). */
-    content: ""; position: absolute; left: 4px; top: auto; margin-top: 6px; width: 16px; height: 16px; border-radius: 50%;
-    background: var(--surface); border: 2px solid var(--line); transition: background .3s, border-color .3s, transform .3s;
-  }
-  .job.reached::before { background: var(--accent2); border-color: var(--accent2); transform: scale(1.15); }
-  .job.reached { border-color: color-mix(in srgb, var(--accent2) 35%, var(--line)); }
-  .instr {
-    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 6px;
-    font-size: .74rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent2);
-  }
-  .instr svg { width: 20px; height: 20px; flex: none; }
-  .job.dest { background: transparent; border-style: dashed; }
-  .job.dest .instr { color: var(--accent); }
-  .dest-text { color: var(--muted); max-width: 56ch; }
-
-  /* útvonal-térkép */
-  .route-map { min-width: 0; overflow: hidden; margin: 0 0 48px; background: var(--bg); border: 1px solid var(--line); border-radius: 24px; padding: 12px; box-shadow: var(--shadow); }
-  .route-scroll { overflow-x: auto; border-radius: 16px; }
-  /* a térkép a szélességhez igazodik; görgetni csak 200px alatti helynél kell */
-  .route-map #mapSvg { display: block; width: 100%; height: auto; min-width: 200px; }
-  .m-dot { fill: color-mix(in srgb, var(--ink) 10%, transparent); }
-  .m-road { stroke: color-mix(in srgb, var(--ink) 7%, var(--bg)); }
-  .m-center { stroke: var(--bg); }
-  .m-stop1 { stop-color: var(--accent2); }
-  .m-stop2 { stop-color: var(--accent); }
-  .m-wp { fill: var(--surface); }
-  .m-wp-a2 { stroke: var(--accent2); }
-  .m-wp-a1 { stroke: var(--accent); }
-  .m-wp-ink { stroke: var(--ink); }
-  .m-label { fill: var(--ink); font: 400 20px var(--f-display); }
-  .m-sub { fill: var(--muted); font: 500 12px var(--f-body); letter-spacing: .1em; text-transform: uppercase; }
-  /* háttérszínű körvonal a feliratok mögött, hogy az utak fölött is olvashatók maradjanak */
-  .m-label, .m-sub { paint-order: stroke; stroke: var(--bg); stroke-width: 5px; stroke-linejoin: round; }
-  /* keskeny képernyőn a térkép kicsinyítve fér ki, ezért a feliratok arányosan nagyobbak */
-  @media (max-width: 720px) {
-    .m-label { font-size: 34px; }
-    .m-sub { font-size: 21px; letter-spacing: .06em; }
-    .m-label, .m-sub { stroke-width: 8px; }
-  }
-  .m-pole { stroke: var(--ink); }
-  .m-flag { fill: var(--accent); }
-  .m-car { fill: var(--ink); }
-  .m-car-ring { fill: none; stroke: var(--accent2); opacity: .5; }
-  .map-panel {
-    margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px;
-    background: var(--band); color: var(--on-band); border-radius: 14px; padding: 12px 18px;
-  }
-  .map-panel .turn { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--accent2); color: var(--band); flex: none; }
-  .map-panel .turn svg { width: 20px; height: 20px; }
-  .map-panel small { display: block; font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
-  .map-panel b { font: 400 1.05rem var(--f-display); }
-  .when { display: grid; gap: 6px; align-content: start; }
-  .when .years { font: 300 1.9rem/1.1 var(--f-display); font-variant-numeric: lining-nums; }
-  .when .span { font-size: .88rem; color: var(--muted); }
-  .what { min-width: 0; display: grid; gap: 14px; }
-  .what h3 { font-size: clamp(1.5rem, 3vw, 1.85rem); }
-  .company { color: var(--accent); font-weight: 500; font-size: .98rem; }
-  .what ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; color: var(--ink); }
-  .what ul li::marker { color: var(--accent); }
-  .tags { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: .88rem; }
-  .tags span + span::before { content: "·"; margin-right: 18px; color: var(--line); }
-  .tags span { display: inline-flex; }
-
-  /* készségek */
-  .skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .skill {
-    min-width: 0; padding: 24px; display: grid; gap: 14px; align-content: start;
-    background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
-    border-top: 3px solid var(--c, var(--accent));
-  }
-  .skill:nth-child(2) { --c: var(--accent2); }
-  .skill:nth-child(3) { --c: var(--ink); }
-  .skill h3 { font-size: 1.3rem; }
-  .skill ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-  .skill li { color: var(--muted); }
-
-  /* kapcsolat */
-  .contact { background: var(--band); color: var(--on-band); }
-  .contact .wrap { padding-block: 96px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
-  .contact .label { color: var(--band-accent); }
-  .contact h2 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 300; margin-block: 14px 18px; }
-  .contact h2 em { font-style: normal; color: var(--band-accent); }
-  .contact p { opacity: .78; max-width: 44ch; }
-  .channels { list-style: none; margin: 0; padding: 0; display: grid; min-width: 0; }
-  .channel {
-    display: grid; grid-template-columns: 7rem 1fr auto; align-items: baseline; gap: 16px;
-    padding-block: 18px; border-bottom: 1px solid color-mix(in srgb, var(--on-band) 18%, transparent);
-  }
-  .channel:first-child { border-top: 1px solid color-mix(in srgb, var(--on-band) 18%, transparent); }
-  .channel small { font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; opacity: .6; }
-  .channel .val { font: 400 1.2rem var(--f-display); overflow-wrap: anywhere; min-width: 0; text-decoration: none; }
-  .channel a.val:hover { text-decoration: underline; text-underline-offset: 4px; }
-  .mini {
-    font: 500 .85rem var(--f-body); padding: 6px 14px; border-radius: 8px; cursor: pointer; white-space: nowrap;
-    background: transparent; color: var(--on-band); border: 1px solid color-mix(in srgb, var(--on-band) 35%, transparent);
-    text-decoration: none; transition: background .2s, color .2s;
-  }
-  .mini:hover { background: var(--on-band); color: var(--band); }
-
-  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 24px; color: var(--muted); font-size: .88rem; }
-
-  /* reszponzív */
-  @media (max-width: 880px) {
-    .hero-grid, .about-grid, .contact .wrap { grid-template-columns: 1fr; gap: 48px; }
-    .portrait { justify-self: start; max-width: 230px; }
-    .job { grid-template-columns: 1fr; gap: 14px; }
-    .skills { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 560px) {
-    .nav { gap: 16px; }
-    .top-right { gap: 14px; }
-    .brand { white-space: nowrap; }
-  }
-  /* nagyon keskeny kijelzőn a menü kimarad (a Kapcsolat gomb a nyitó részben is ott van), így a nyelv- és témaválasztó kifér */
-  @media (max-width: 420px) {
-    .nav { display: none; }
-    .nav a:not(.keep) { display: none; }
-    .hero { padding-block: 40px 56px; }
-    .section { padding-block: 72px; }
-    .portrait { max-width: 200px; }
-    .facts { grid-template-columns: 1fr; }
-    .fact, .fact + .fact { padding: 18px 0; border-left: 0; grid-template-columns: 4.5rem 1fr; align-items: baseline; gap: 12px; }
-    .fact + .fact { border-top: 1px solid var(--line); }
-    .spec .row { grid-template-columns: 1fr; gap: 2px; }
-    .skills { grid-template-columns: 1fr; }
-    .jobs { --pad: 32px; }
-    .job { padding: 22px 20px; }
-    .channel { grid-template-columns: 1fr auto; }
-    .channel small { grid-column: 1 / -1; }
-    .contact .wrap { padding-block: 72px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
-  }
-</style>
+<!-- A mentett sötét mód beállítása még a kirajzolás előtt (ne villanjon fel a világos) -->
+<script src="js/theme-init.js"></script>
 </head>
 <body>
 
+<!-- ============ FEJLÉC: név, menü, nyelvválasztó, világos/sötét gomb ============ -->
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#top" data-i18n="name">Fodor Géza</a>
@@ -356,7 +60,12 @@
   </div>
 </header>
 
+<!-- ============ FŐ TARTALOM ============
+     A data-i18n="kulcs" attribútumú elemek szövege nyelvváltáskor a js/i18n.js
+     szótárból cserélődik. Az itt álló magyar szöveg a keresőknek és a
+     JavaScript nélküli böngészőknek szól; a szótárral egyeznie kell. -->
 <main id="top">
+  <!-- Nyitó rész (hero): név, bemutatkozás, gombok, portré -->
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-text">
@@ -377,6 +86,7 @@
     </div>
   </section>
 
+  <!-- Számok sáv -->
   <div class="wrap">
     <div class="facts">
       <div class="fact"><b>25+</b><span data-i18n="fact1">év IT- és fejlesztői tapasztalat</span></div>
@@ -385,6 +95,7 @@
     </div>
   </div>
 
+  <!-- ============ RÓLAM: bemutatkozás és adatlap ============ -->
   <section id="rolam" class="section">
     <div class="wrap">
       <div class="sec-head">
@@ -408,6 +119,7 @@
     </div>
   </section>
 
+  <!-- ============ SZAKMAI ÚT: térkép és idővonal ============ -->
   <section id="szakmai-ut" class="section career">
     <div class="wrap">
       <div class="sec-head">
@@ -415,6 +127,7 @@
         <h2 data-i18n="careerH">Grafikától a navigációs szoftverekig</h2>
       </div>
 
+      <!-- Útvonal-térkép (SVG). A haladó pontot az <animateMotion> mozgatja végig a #routePath vonalon. -->
       <figure class="route-map" aria-label="Szakmai útvonal térképen: 1997 grafika, 2003 web, 2008 navigáció, és ma" data-i18n-aria="mapAria">
         <div class="route-scroll">
           <svg id="mapSvg" viewBox="0 0 800 280" role="img" aria-hidden="true">
@@ -468,6 +181,7 @@
         </figcaption>
       </figure>
 
+      <!-- Idővonal: a .rail-fill a színes sín (magasságát a js/main.js állítja), alatta a munkahelyek a legfrissebbel kezdve -->
       <ol class="jobs" id="jobs">
         <li class="rail-fill" aria-hidden="true"></li>
         <li class="job dest">
@@ -543,6 +257,7 @@
     </div>
   </section>
 
+  <!-- ============ KÉSZSÉGEK ============ -->
   <section id="keszsegek" class="section">
     <div class="wrap">
       <div class="sec-head">
@@ -558,6 +273,7 @@
     </div>
   </section>
 
+  <!-- ============ KAPCSOLAT ============ -->
   <section id="kapcsolat" class="contact">
     <div class="wrap">
       <div>
@@ -585,6 +301,7 @@
   </section>
 </main>
 
+<!-- ============ LÁBLÉC ============ -->
 <footer>
   <div class="wrap">
     <span>© 2026 <span data-i18n="name">Fodor Géza</span></span>
@@ -592,189 +309,8 @@
   </div>
 </footer>
 
-<script>
-  (function () {
-    // ---------- Nyelvváltás (magyar az alapértelmezett, a magyar szöveg a HTML-ben van) ----------
-    var EN = {
-      name: 'Géza Fodor',
-      navAria: 'Main navigation',
-      navAbout: 'About me',
-      navCareer: 'Career path',
-      navSkills: 'Skills',
-      navContact: 'Contact',
-      langAria: 'Choose language',
-      h1: '<em>Géza</em> Fodor',
-      lead: 'I have more than 25 years of experience in IT and software development. I began my career as a print graphic designer, went on to develop web applications and portals, and spent most of the past two decades programming navigation systems.',
-      photoAlt: 'Portrait of Géza Fodor',
-      fact1: 'years of experience in IT and development',
-      fact2: 'years of navigation software development',
-      fact3: 'fields: graphic design, web, navigation',
-      aboutH: 'Where design meets development',
-      about1: 'My professional background includes script-based development for navigation systems, web application and portal development, and the preparation of print and multimedia content.',
-      about2: 'Throughout my career, I have worked in both graphic design and software development roles. This allows me to give equal weight to visual design and functionality when creating digital solutions. I am currently expanding my skills in React and TypeScript.',
-      about3: 'My work reflects precision, effective communication, strong teamwork, and independent problem-solving.',
-      specPos: 'Position',
-      specLoc: 'Location',
-      location: 'Gödöllő and the Budapest area',
-      specEdu: 'Education',
-      edu: 'Prompt Számítástechnikai Oktatóközpont<br><small>Computer training center · Gödöllő, Hungary</small>',
-      specLang: 'Languages',
-      langs: 'Hungarian <small>· native</small><br>English <small>· A2 (basic working knowledge)</small>',
-      specLic: 'Driver’s license',
-      lic: 'Categories B and C',
-      careerH: 'From graphic design to navigation software',
-      mapAria: 'Career path shown on a map: graphic design in 1997, web in 2003, navigation in 2008, and today',
-      mapGfx: 'Design',
-      mapNav: 'Navigation',
-      today: 'Today',
-      todayCap: 'Today',
-      panelDist: 'Distance covered',
-      panelDistV: '1997 → today',
-      panelStops: 'Stops',
-      panelStopsV: '3 employers',
-      panelDir: 'Heading',
-      instrNext: 'Next destination',
-      destH: 'Modern front-end development',
-      destText: 'I am combining my previous experience with modern web technologies while continuously deepening my knowledge of React and TypeScript.',
-      instrHwy: 'Merge onto the highway',
-      nngSpan: 'Jan 2008 – Sep 2026 · 18 years 9 months',
-      nngCo: 'NNG LLC · Budapest',
-      nng1: 'Developed and maintained GPS-based navigation systems, mainly in Lua and XScript, an object-oriented, JavaScript-based language.',
-      nng2: 'Designed and edited user interface layouts and graphic elements for navigation software.',
-      nng3: 'Integrated the developed content into in-car and mobile platforms.',
-      nng4: 'Used Git, Mercurial (HG) and SVN for version control; worked as part of a team in an agile development environment.',
-      tagUi: 'UI layout',
-      instrRight: 'Turn right',
-      invSpan: 'Jan 2003 – Sep 2007 · 4 years 9 months',
-      invH: 'Web Systems Developer',
-      inv1: 'Designed and developed corporate web systems, company portals and online stores.',
-      inv2: 'Built web applications with PHP, MySQL, HTML and CSS, tailored to each client’s needs.',
-      instrStart: 'Start',
-      gfxSpan: 'Jun 1997 – Dec 2002 · 5 years 7 months',
-      gfxH: 'Graphic Designer and Editor',
-      gfx1: 'Produced print-ready publications, posters and flyers.',
-      gfx2: 'Handled prepress and imagesetting, and created presentation and multimedia materials.',
-      tagPrepress: 'Prepress',
-      skillsH: 'Technologies and tools',
-      skScript: 'Scripting',
-      skGfx: 'Graphics and version control',
-      skLearn: 'Ongoing training',
-      contactH: 'Get in <em>touch</em>',
-      contactP: 'Interested in working together or have a question? Feel free to reach out via email or LinkedIn.',
-      chEmail: 'Email',
-      copy: 'Copy',
-      open: 'Open'
-    };
-    var UI = {
-      hu: { title: 'Fodor Géza – Front-End Developer', copy: 'Másolás', copied: 'Kimásolva', selected: 'Kijelölve', toDark: 'Sötét megjelenés', toLight: 'Világos megjelenés' },
-      en: { title: 'Géza Fodor – Front-End Developer', copy: 'Copy', copied: 'Copied', selected: 'Selected', toDark: 'Dark theme', toLight: 'Light theme' }
-    };
-
-    var textEls = document.querySelectorAll('[data-i18n]');
-    var ariaEls = document.querySelectorAll('[data-i18n-aria]');
-    var altEls = document.querySelectorAll('[data-i18n-alt]');
-    // a magyar eredetit elmentjük, hogy vissza lehessen váltani
-    textEls.forEach(function (el) { el.dataset.hu = el.innerHTML; });
-    ariaEls.forEach(function (el) { el.dataset.huAria = el.getAttribute('aria-label'); });
-    altEls.forEach(function (el) { el.dataset.huAlt = el.getAttribute('alt'); });
-
-    var btnHu = document.getElementById('langHu');
-    var btnEn = document.getElementById('langEn');
-    var current = 'hu';
-
-    function setLang(lang) {
-      current = lang;
-      var en = lang === 'en';
-      textEls.forEach(function (el) { el.innerHTML = en ? EN[el.dataset.i18n] : el.dataset.hu; });
-      ariaEls.forEach(function (el) { el.setAttribute('aria-label', en ? EN[el.dataset.i18nAria] : el.dataset.huAria); });
-      altEls.forEach(function (el) { el.setAttribute('alt', en ? EN[el.dataset.i18nAlt] : el.dataset.huAlt); });
-      document.documentElement.lang = lang;
-      document.title = UI[lang].title;
-      btnHu.setAttribute('aria-pressed', String(!en));
-      btnEn.setAttribute('aria-pressed', String(en));
-      try { localStorage.setItem('lang', lang); } catch (e) {}
-      refreshThemeBtn();
-      if (typeof update === 'function') update();
-    }
-
-    // ---------- Világos / sötét megjelenés ----------
-    // Alapból világos (a készülék beállításától függetlenül); a látogató választását megjegyezzük.
-    var root = document.documentElement;
-    var themeBtn = document.getElementById('themeBtn');
-    var iconSun = document.getElementById('iconSun');
-    var iconMoon = document.getElementById('iconMoon');
-    function effectiveTheme() {
-      return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    }
-    function refreshThemeBtn() {
-      var dark = effectiveTheme() === 'dark';
-      // SVG elemen a .hidden tulajdonság nem létezik, ezért attribútummal kapcsoljuk
-      iconSun.toggleAttribute('hidden', !dark);
-      iconMoon.toggleAttribute('hidden', dark);
-      var label = UI[current][dark ? 'toLight' : 'toDark'];
-      themeBtn.setAttribute('aria-label', label);
-      themeBtn.title = label;
-    }
-    function setTheme(t) {
-      root.setAttribute('data-theme', t);
-      try { localStorage.setItem('theme', t); } catch (e) {}
-      refreshThemeBtn();
-    }
-    themeBtn.addEventListener('click', function () { setTheme(effectiveTheme() === 'dark' ? 'light' : 'dark'); });
-    var savedTheme = null;
-    try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
-    root.setAttribute('data-theme', savedTheme === 'dark' ? 'dark' : 'light');
-    btnHu.addEventListener('click', function () { setLang('hu'); });
-    btnEn.addEventListener('click', function () { setLang('en'); });
-
-    // ---------- E-mail másolása ----------
-    var btn = document.getElementById('copyBtn');
-    var email = 'fdgeza@gmail.com';
-    function selectEmail() {
-      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
-      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-    }
-    function done(key) {
-      btn.textContent = UI[current][key];
-      setTimeout(function () { btn.textContent = UI[current].copy; }, 1800);
-    }
-    btn.addEventListener('click', function () {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).then(function () { done('copied'); }, function () { selectEmail(); done('selected'); });
-      } else { selectEmail(); done('selected'); }
-    });
-
-    // ---------- Szakmai út: a sín a képernyő közepéig telik meg, az elért állomások kigyulladnak ----------
-    var list = document.getElementById('jobs');
-    var fill = list.querySelector('.rail-fill');
-    var jobs = list.querySelectorAll('.job');
-    var ticking = false;
-    function update() {
-      ticking = false;
-      var box = list.getBoundingClientRect();
-      var mark = window.innerHeight * 0.6;
-      var max = box.height - 16;
-      var h = Math.max(0, Math.min(max, mark - box.top - 8));
-      fill.style.setProperty('--fill', h + 'px');
-      jobs.forEach(function (job) {
-        job.classList.toggle('reached', job.getBoundingClientRect().top + 38 <= mark);
-      });
-    }
-    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-
-    // Elmentett nyelv visszaállítása (alapértelmezés: magyar)
-    var saved = null;
-    try { saved = localStorage.getItem('lang'); } catch (e) {}
-    setLang(saved === 'en' ? 'en' : 'hu');
-
-    // Mozgáscsökkentés esetén a térképen haladó pont megáll a célnál
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var svg = document.getElementById('mapSvg');
-      if (svg && svg.pauseAnimations) { svg.pauseAnimations(); svg.setCurrentTime(9); }
-    }
-  })();
-</script>
+<!-- Szkriptek: előbb a szótár, utána az oldal működése (ez használja a szótárat) -->
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

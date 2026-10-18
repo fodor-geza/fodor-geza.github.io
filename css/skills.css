@@ -1,0 +1,17 @@
+/* ============================================================
+   KÉSZSÉGEK
+   Négy kártya; mindegyik tetején más színű csík (--c változó).
+   ============================================================ */
+
+/* készségek */
+.skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.skill {
+  min-width: 0; padding: 24px; display: grid; gap: 14px; align-content: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+  border-top: 3px solid var(--c, var(--accent));
+}
+.skill:nth-child(2) { --c: var(--accent2); }
+.skill:nth-child(3) { --c: var(--ink); }
+.skill h3 { font-size: 1.3rem; }
+.skill ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.skill li { color: var(--muted); }

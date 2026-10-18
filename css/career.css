@@ -1,0 +1,93 @@
+/* ============================================================
+   SZAKMAI ÚT
+   1) Függőleges idővonal: a sín görgetésre telik meg (a magasságát
+      a js/main.js állítja a --fill változón keresztül), az elért
+      állomások jelölője kigyullad (.reached osztály).
+   2) Útvonal-térkép (SVG) és alatta a sötét navigációs sáv.
+   3) A munkahely-kártyák belseje (dátum, cím, felsorolás, címkék).
+   ============================================================ */
+
+/* szakmai út */
+.career { background: var(--surface); border-block: 1px solid var(--line); }
+/* idővonal: a sín görgetésre telik meg, az elért állomások jelölője kigyullad */
+.jobs { --pad: 56px; position: relative; list-style: none; margin: 0; padding: 0 0 0 var(--pad); display: grid; gap: 20px; }
+.jobs::before { content: ""; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--line); }
+.rail-fill {
+  position: absolute; left: 11px; top: 8px; width: 2px; height: var(--fill, 0px); border-radius: 2px;
+  background: linear-gradient(to bottom, var(--accent2), var(--accent));
+  transition: height .25s ease-out;
+}
+.rail-fill::after {
+  content: ""; position: absolute; left: 50%; bottom: -6px; width: 12px; height: 12px; border-radius: 50%; transform: translateX(-50%);
+  background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.job {
+  display: grid; grid-template-columns: 200px 1fr; gap: 40px;
+  padding: 32px; background: var(--bg); border: 1px solid var(--line); border-radius: 20px;
+  transition: box-shadow .3s ease, border-color .3s ease;
+}
+.job:hover { box-shadow: var(--shadow); }
+.job::before {
+  /* A jelölő a listához (.jobs) igazodik, mint a sín, ezért a kártya kerete nem tolja el:
+     vízszintesen sín közepe (12px) − fél jelölő (8px); függőlegesen a kártya tartalmának tetejéhez képest (top: auto + margin). */
+  content: ""; position: absolute; left: 4px; top: auto; margin-top: 6px; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--surface); border: 2px solid var(--line); transition: background .3s, border-color .3s, transform .3s;
+}
+.job.reached::before { background: var(--accent2); border-color: var(--accent2); transform: scale(1.15); }
+.job.reached { border-color: color-mix(in srgb, var(--accent2) 35%, var(--line)); }
+.instr {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 6px;
+  font-size: .74rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent2);
+}
+.instr svg { width: 20px; height: 20px; flex: none; }
+.job.dest { background: transparent; border-style: dashed; }
+.job.dest .instr { color: var(--accent); }
+.dest-text { color: var(--muted); max-width: 56ch; }
+
+/* útvonal-térkép */
+.route-map { min-width: 0; overflow: hidden; margin: 0 0 48px; background: var(--bg); border: 1px solid var(--line); border-radius: 24px; padding: 12px; box-shadow: var(--shadow); }
+.route-scroll { overflow-x: auto; border-radius: 16px; }
+/* a térkép a szélességhez igazodik; görgetni csak 200px alatti helynél kell */
+.route-map #mapSvg { display: block; width: 100%; height: auto; min-width: 200px; }
+.m-dot { fill: color-mix(in srgb, var(--ink) 10%, transparent); }
+.m-road { stroke: color-mix(in srgb, var(--ink) 7%, var(--bg)); }
+.m-center { stroke: var(--bg); }
+.m-stop1 { stop-color: var(--accent2); }
+.m-stop2 { stop-color: var(--accent); }
+.m-wp { fill: var(--surface); }
+.m-wp-a2 { stroke: var(--accent2); }
+.m-wp-a1 { stroke: var(--accent); }
+.m-wp-ink { stroke: var(--ink); }
+.m-label { fill: var(--ink); font: 400 20px var(--f-display); }
+.m-sub { fill: var(--muted); font: 500 12px var(--f-body); letter-spacing: .1em; text-transform: uppercase; }
+/* háttérszínű körvonal a feliratok mögött, hogy az utak fölött is olvashatók maradjanak */
+.m-label, .m-sub { paint-order: stroke; stroke: var(--bg); stroke-width: 5px; stroke-linejoin: round; }
+/* keskeny képernyőn a térkép kicsinyítve fér ki, ezért a feliratok arányosan nagyobbak */
+@media (max-width: 720px) {
+  .m-label { font-size: 34px; }
+  .m-sub { font-size: 21px; letter-spacing: .06em; }
+  .m-label, .m-sub { stroke-width: 8px; }
+}
+.m-pole { stroke: var(--ink); }
+.m-flag { fill: var(--accent); }
+.m-car { fill: var(--ink); }
+.m-car-ring { fill: none; stroke: var(--accent2); opacity: .5; }
+.map-panel {
+  margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px;
+  background: var(--band); color: var(--on-band); border-radius: 14px; padding: 12px 18px;
+}
+.map-panel .turn { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--accent2); color: var(--band); flex: none; }
+.map-panel .turn svg { width: 20px; height: 20px; }
+.map-panel small { display: block; font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
+.map-panel b { font: 400 1.05rem var(--f-display); }
+.when { display: grid; gap: 6px; align-content: start; }
+.when .years { font: 300 1.9rem/1.1 var(--f-display); font-variant-numeric: lining-nums; }
+.when .span { font-size: .88rem; color: var(--muted); }
+.what { min-width: 0; display: grid; gap: 14px; }
+.what h3 { font-size: clamp(1.5rem, 3vw, 1.85rem); }
+.company { color: var(--accent); font-weight: 500; font-size: .98rem; }
+.what ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; color: var(--ink); }
+.what ul li::marker { color: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: .88rem; }
+.tags span + span::before { content: "·"; margin-right: 18px; color: var(--line); }
+.tags span { display: inline-flex; }

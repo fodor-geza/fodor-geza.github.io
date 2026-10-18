@@ -1,0 +1,47 @@
+/* ============================================================
+   NYITÓ RÉSZ (hero) ÉS SZÁMOK SÁV
+   Név, bemutatkozás, gombok, portré; alatta a 25+ / 18 / 3 számok.
+   ============================================================ */
+
+/* hero */
+.hero { position: relative; overflow: hidden; padding-block: 72px 64px; }
+.hero::before {
+  content: ""; position: absolute; z-index: -1; inset: -20% -10% auto auto; width: 620px; height: 620px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 40%, var(--tint2), transparent 62%), radial-gradient(circle at 65% 60%, var(--tint), transparent 60%);
+}
+.hero-grid { display: grid; grid-template-columns: 1.5fr .7fr; gap: 64px; align-items: center; }
+.hero-text { min-width: 0; display: grid; gap: 24px; }
+h1 { font-size: clamp(3rem, 8vw, 5.4rem); font-weight: 400; letter-spacing: -.02em; line-height: 1; }
+h1 em { font-style: normal; color: var(--accent); }
+.lead { color: var(--muted); max-width: 52ch; font-size: 1.12rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px; border-radius: 12px;
+  font: 500 .95rem var(--f-body); letter-spacing: .02em; text-decoration: none; border: 1px solid var(--ink);
+  transition: background .2s, color .2s;
+}
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+.btn-ghost { color: var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--bg); }
+/* optikai igazítás: a LinkedIn-logó tömege alul van, ezért kicsit feljebb tesszük, hogy a felirattal egy vonalban hasson */
+.btn svg { width: 17px; height: 17px; transform: translateY(-1.5px); }
+
+.portrait { position: relative; margin: 0; min-width: 0; justify-self: center; width: 100%; max-width: 270px; }
+.portrait::before {
+  content: ""; position: absolute; inset: 12px -12px -12px 12px; border-radius: 20px; z-index: 0;
+  background: linear-gradient(135deg, var(--accent2), var(--accent)); opacity: .85;
+}
+.portrait img {
+  position: relative; z-index: 1; display: block; width: 100%; max-width: 100%; height: auto;
+  background: #fff; border-radius: 20px;
+}
+
+/* számok */
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid var(--line); }
+.fact { padding: 28px 24px 26px 0; display: grid; gap: 2px; }
+.fact + .fact { padding-left: 24px; border-left: 1px solid var(--line); }
+.fact b { font: 300 clamp(2.2rem, 5vw, 3rem)/1 var(--f-display); font-variant-numeric: lining-nums tabular-nums; }
+.fact span { color: var(--muted); font-size: .93rem; }
+.fact:nth-child(1) b { color: var(--accent); }
+.fact:nth-child(2) b { color: var(--accent2); }

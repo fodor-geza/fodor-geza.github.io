@@ -1,0 +1,39 @@
+/* ============================================================
+   RESZPONZÍV SZABÁLYOK
+   Keskenyebb képernyőkre (tablet, telefon) vonatkozó felülírások.
+   Szándékosan az utolsó betöltött fájl, hogy felülírhassa a fentieket.
+   ============================================================ */
+
+/* reszponzív */
+@media (max-width: 880px) {
+  .hero-grid, .about-grid, .contact .wrap { grid-template-columns: 1fr; gap: 48px; }
+  .portrait { justify-self: start; max-width: 230px; }
+  .job { grid-template-columns: 1fr; gap: 14px; }
+  .skills { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .nav { gap: 16px; }
+  .top-right { gap: 14px; }
+  .brand { white-space: nowrap; }
+}
+/* nagyon keskeny kijelzőn a menü kimarad (a Kapcsolat gomb a nyitó részben is ott van), így a nyelv- és témaválasztó kifér */
+@media (max-width: 420px) {
+  .nav { display: none; }
+  .nav a:not(.keep) { display: none; }
+  .hero { padding-block: 40px 56px; }
+  .section { padding-block: 72px; }
+  .portrait { max-width: 200px; }
+  .facts { grid-template-columns: 1fr; }
+  .fact, .fact + .fact { padding: 18px 0; border-left: 0; grid-template-columns: 4.5rem 1fr; align-items: baseline; gap: 12px; }
+  .fact + .fact { border-top: 1px solid var(--line); }
+  .spec .row { grid-template-columns: 1fr; gap: 2px; }
+  .skills { grid-template-columns: 1fr; }
+  .jobs { --pad: 32px; }
+  .job { padding: 22px 20px; }
+  .channel { grid-template-columns: 1fr auto; }
+  .channel small { grid-column: 1 / -1; }
+  .contact .wrap { padding-block: 72px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+}
