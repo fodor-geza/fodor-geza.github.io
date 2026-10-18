@@ -45,5 +45,13 @@ A szótárakban a kulcsok ponttal tagolt névterek (pl. `"about.title"`, `"caree
 ## Helyi kipróbálás
 
 A szótárakat a böngésző tölti le (`fetch`), ezért az `index.html` dupla kattintással
-megnyitva nem tud nyelvet váltani. Helyben egy kis webszerverrel nyisd meg,
-például a VS Code **Live Server** bővítményével.
+megnyitva nem tud nyelvet váltani. Helyben a beépített kis szerverrel nyisd meg
+(csak Node.js kell hozzá, külső csomag nem):
+
+```
+npm start
+```
+
+Utána a böngészőben: http://localhost:5500. Ha elmentesz egy fájlt, az oldal
+magától újratöltődik. Leállítás: a terminálban `Ctrl+C`.
+A szerver kódja: `tools/dev-server.js` (a GitHub Pages nem használja).

@@ -1,0 +1,9 @@
+{
+  "name": "fodor-geza-weboldal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fodor Géza személyes weboldala",
+  "scripts": {
+    "start": "node tools/dev-server.js"
+  }
+}
