@@ -1,11 +1,23 @@
 /* ============================================================
    AZ OLDAL MŰKÖDÉSE
    ------------------------------------------------------------
-   1. Nyelvváltás (HU / EN) a js/i18n.js szótár alapján
+   1. Nyelvváltás (HU / EN) a data/i18n/*.json szótárak alapján
    2. Világos / sötét megjelenés
    3. E-mail-cím másolása
    4. Szakmai út: görgetésre megtelő idővonal
-   5. Indítás: a mentett beállítások visszaállítása
+   5. Indítás: a szótárak betöltése és a mentett beállítások visszaállítása
+
+   A szótárak (data/i18n/hu.json, data/i18n/en.json):
+   - A HTML-ben a lefordítandó elemeken egy kulcs áll, például:
+       <h2 data-i18n="about.title">…</h2>     → a szöveg (innerHTML) cserélődik
+       <nav data-i18n-aria="header.navAria">  → az aria-label cserélődik
+       <img data-i18n-alt="hero.photoAlt">     → az alt szöveg cserélődik
+   - A kulcsok ponttal tagolt névterek (szakasz.elem), mindkét
+     JSON-ban ugyanabban a sorrendben.
+   - Néhány érték HTML-t is tartalmaz (<em>, <br>, <small>).
+   - Magyar szöveg módosításakor az index.html-ben is írd át ugyanígy
+     (a keresők és a JavaScript nélküli böngészők azt látják). Ha a
+     kettő eltér, a konzol figyelmeztet (checkHtmlMatchesDictionary).
 
    A fájl a <body> legvégén töltődik be, ezért itt már minden
    HTML-elem elérhető. A külső (function () { … })() keret azért
@@ -15,7 +27,7 @@
   'use strict';
 
   const root = document.documentElement;   // a <html> elem
-  const dict = window.I18N;                 // a szótár (js/i18n.js)
+  const dict = {};                          // { hu: {...}, en: {...} } – az indításkor töltjük be
 
   /** Kiolvasás a böngésző tárolójából; ha le van tiltva, null. */
   function load(key) {
@@ -39,9 +51,18 @@
   const btnEn = document.getElementById('langEn');
   let currentLang = 'hu';
 
-  /** Egy szöveg a kiválasztott nyelven. */
+  /** Egy szöveg a kiválasztott nyelven (undefined, amíg a szótár nem töltődött be). */
   function t(key) {
-    return dict[currentLang][key];
+    const lang = dict[currentLang];
+    return lang ? lang[key] : undefined;
+  }
+
+  /** Egy nyelv szótárának letöltése (pl. data/i18n/en.json). */
+  function loadDictionary(lang) {
+    return fetch('data/i18n/' + lang + '.json').then(function (response) {
+      if (!response.ok) throw new Error(lang + '.json: ' + response.status);
+      return response.json();
+    });
   }
 
   /**
@@ -73,7 +94,7 @@
     altEls.forEach(function (el) { el.setAttribute('alt', t(el.dataset.i18nAlt)); });
 
     root.lang = lang;                 // a felolvasóprogramok és a keresők ebből tudják a nyelvet
-    document.title = t('title');      // böngészőfül címe
+    document.title = t('ui.title');   // böngészőfül címe
     btnHu.setAttribute('aria-pressed', String(lang === 'hu'));
     btnEn.setAttribute('aria-pressed', String(lang === 'en'));
     save('lang', lang);
@@ -103,9 +124,11 @@
     // SVG elemen a .hidden tulajdonság nem létezik, ezért attribútummal kapcsoljuk
     iconSun.toggleAttribute('hidden', !dark);
     iconMoon.toggleAttribute('hidden', dark);
-    const label = t(dark ? 'toLight' : 'toDark');
-    themeBtn.setAttribute('aria-label', label);
-    themeBtn.title = label;
+    const label = t(dark ? 'ui.toLight' : 'ui.toDark');
+    if (label) {                      // a szótár betöltéséig a HTML-ben lévő felirat marad
+      themeBtn.setAttribute('aria-label', label);
+      themeBtn.title = label;
+    }
   }
 
   function setTheme(theme) {
@@ -134,18 +157,18 @@
   /** Rövid visszajelzés a gombon („Kimásolva” / „Kijelölve”), majd vissza alaphelyzetbe. */
   function showCopyResult(key) {
     copyBtn.textContent = t(key);
-    setTimeout(function () { copyBtn.textContent = t('copy'); }, 1800);
+    setTimeout(function () { copyBtn.textContent = t('ui.copy'); }, 1800);
   }
 
   function copyEmail() {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(EMAIL).then(
-        function () { showCopyResult('copied'); },
-        function () { selectEmail(); showCopyResult('selected'); }
+        function () { showCopyResult('ui.copied'); },
+        function () { selectEmail(); showCopyResult('ui.selected'); }
       );
     } else {
       selectEmail();
-      showCopyResult('selected');
+      showCopyResult('ui.selected');
     }
   }
 
@@ -185,23 +208,42 @@
   /* ----------------------------------------------------------
      5. INDÍTÁS
      ---------------------------------------------------------- */
-  checkHtmlMatchesDictionary();
 
   // Téma: a mentett választás, különben világos.
   // (A sötétet a js/theme-init.js már a kirajzolás előtt beállította.)
   root.setAttribute('data-theme', load('theme') === 'dark' ? 'dark' : 'light');
+  refreshThemeButton();
 
-  // Eseménykezelők
-  btnHu.addEventListener('click', function () { setLang('hu'); });
-  btnEn.addEventListener('click', function () { setLang('en'); });
+  // Ezek a szótártól függetlenül azonnal működnek.
   themeBtn.addEventListener('click', function () { setTheme(currentTheme() === 'dark' ? 'light' : 'dark'); });
-  copyBtn.addEventListener('click', copyEmail);
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
+  updateTimeline();
 
-  // Nyelv: a mentett választás, különben magyar.
-  // A setLang a témagomb feliratát és az idővonalat is beállítja.
-  setLang(load('lang') === 'en' ? 'en' : 'hu');
+  // Szótárak betöltése, utána a nyelvfüggő részek indítása.
+  Promise.all([loadDictionary('hu'), loadDictionary('en')])
+    .then(function (results) {
+      dict.hu = results[0];
+      dict.en = results[1];
+      checkHtmlMatchesDictionary();
+
+      btnHu.addEventListener('click', function () { setLang('hu'); });
+      btnEn.addEventListener('click', function () { setLang('en'); });
+      copyBtn.addEventListener('click', copyEmail);
+
+      // Nyelv: a mentett választás, különben magyar.
+      // A setLang a témagomb feliratát és az idővonalat is beállítja.
+      setLang(load('lang') === 'en' ? 'en' : 'hu');
+    })
+    .catch(function (error) {
+      // Pl. ha az index.html-t közvetlenül fájlként nyitod meg (file://), a böngésző
+      // nem engedi a JSON letöltését. Ilyenkor a HTML-ben lévő magyar szöveg marad.
+      console.error('[i18n] A szótár nem tölthető be – helyben egy kis webszerverrel nyisd meg az oldalt.', error);
+    })
+    .finally(function () {
+      // A js/theme-init.js angol nyelvnél elrejti az oldalt, amíg a szótár megérkezik.
+      root.classList.remove('i18n-pending');
+    });
 
   // Ha a látogató kevesebb mozgást kér, a térképen haladó pont megáll a célnál.
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

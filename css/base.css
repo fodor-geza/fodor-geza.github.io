@@ -11,6 +11,8 @@
 body { margin: 0; }
 img { max-width: 100%; }
 [hidden] { display: none !important; }
+/* Amíg az angol szótár töltődik, az oldal rejtve marad (lásd js/theme-init.js) */
+html.i18n-pending body { visibility: hidden; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }

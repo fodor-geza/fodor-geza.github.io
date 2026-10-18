@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="css/contact.css">
 <link rel="stylesheet" href="css/responsive.css">
 
-<!-- A mentett sötét mód beállítása még a kirajzolás előtt (ne villanjon fel a világos) -->
+<!-- A mentett sötét mód és angol nyelv kezelése még a kirajzolás előtt (ne villanjon fel a világos téma / magyar szöveg) -->
 <script src="js/theme-init.js"></script>
 </head>
 <body>
@@ -38,16 +38,16 @@
 <!-- ============ FEJLÉC: név, menü, nyelvválasztó, világos/sötét gomb ============ -->
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top" data-i18n="name">Fodor Géza</a>
+    <a class="brand" href="#top" data-i18n="header.name">Fodor Géza</a>
     <div class="top-right">
-      <nav class="nav" aria-label="Fő navigáció" data-i18n-aria="navAria">
-        <a href="#rolam" data-i18n="navAbout">Rólam</a>
-        <a href="#szakmai-ut" data-i18n="navCareer">Szakmai út</a>
-        <a href="#keszsegek" data-i18n="navSkills">Készségek</a>
-        <a class="keep" href="#kapcsolat" data-i18n="navContact">Kapcsolat</a>
+      <nav class="nav" aria-label="Fő navigáció" data-i18n-aria="header.navAria">
+        <a href="#rolam" data-i18n="nav.about">Rólam</a>
+        <a href="#szakmai-ut" data-i18n="nav.career">Szakmai út</a>
+        <a href="#keszsegek" data-i18n="nav.skills">Készségek</a>
+        <a class="keep" href="#kapcsolat" data-i18n="nav.contact">Kapcsolat</a>
       </nav>
       <div class="settings">
-        <div class="lang" role="group" aria-label="Nyelv választása" data-i18n-aria="langAria">
+        <div class="lang" role="group" aria-label="Nyelv választása" data-i18n-aria="header.langAria">
           <button type="button" id="langHu" lang="hu" aria-pressed="true" title="Magyar">HU</button>
           <button type="button" id="langEn" lang="en" aria-pressed="false" title="English">EN</button>
         </div>
@@ -61,19 +61,19 @@
 </header>
 
 <!-- ============ FŐ TARTALOM ============
-     A data-i18n="kulcs" attribútumú elemek szövege nyelvváltáskor a js/i18n.js
-     szótárból cserélődik. Az itt álló magyar szöveg a keresőknek és a
-     JavaScript nélküli böngészőknek szól; a szótárral egyeznie kell. -->
+     A data-i18n="szakasz.kulcs" attribútumú elemek szövege nyelvváltáskor a
+     data/i18n/hu.json és en.json szótárból cserélődik. Az itt álló magyar szöveg
+     a keresőknek és a JavaScript nélküli böngészőknek szól; a hu.json-nal egyeznie kell. -->
 <main id="top">
   <!-- Nyitó rész (hero): név, bemutatkozás, gombok, portré -->
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-text">
         <span class="label">Front-End Developer</span>
-        <h1 data-i18n="h1">Fodor <em>Géza</em></h1>
-        <p class="lead" data-i18n="lead">Több mint 25 éves IT- és fejlesztői tapasztalattal rendelkezem. Pályámat nyomdai grafikusként kezdtem, majd webalkalmazásokat és portálokat fejlesztettem, az elmúlt közel két évtizedben pedig navigációs rendszerek programozásával foglalkoztam.</p>
+        <h1 data-i18n="hero.name">Fodor <em>Géza</em></h1>
+        <p class="lead" data-i18n="hero.lead">Több mint 25 éves IT- és fejlesztői tapasztalattal rendelkezem. Pályámat nyomdai grafikusként kezdtem, majd webalkalmazásokat és portálokat fejlesztettem, az elmúlt közel két évtizedben pedig navigációs rendszerek programozásával foglalkoztam.</p>
         <div class="actions">
-          <a class="btn btn-primary" href="#kapcsolat" data-i18n="navContact">Kapcsolat</a>
+          <a class="btn btn-primary" href="#kapcsolat" data-i18n="nav.contact">Kapcsolat</a>
           <a class="btn btn-ghost" href="https://www.linkedin.com/in/g%C3%A9za-fodor-351820300" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.1c0-1.22-.02-2.79-1.7-2.79-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg>
             LinkedIn
@@ -81,7 +81,7 @@
         </div>
       </div>
       <figure class="portrait">
-        <img src="foto.jpg" width="900" height="876" alt="Fodor Géza portréja" data-i18n-alt="photoAlt">
+        <img src="foto.jpg" width="900" height="876" alt="Fodor Géza portréja" data-i18n-alt="hero.photoAlt">
       </figure>
     </div>
   </section>
@@ -89,9 +89,9 @@
   <!-- Számok sáv -->
   <div class="wrap">
     <div class="facts">
-      <div class="fact"><b>25+</b><span data-i18n="fact1">év IT- és fejlesztői tapasztalat</span></div>
-      <div class="fact"><b>18</b><span data-i18n="fact2">év navigációs szoftverek fejlesztése</span></div>
-      <div class="fact"><b>3</b><span data-i18n="fact3">terület: grafika, web, navigáció</span></div>
+      <div class="fact"><b>25+</b><span data-i18n="facts.experience">év IT- és fejlesztői tapasztalat</span></div>
+      <div class="fact"><b>18</b><span data-i18n="facts.navigation">év navigációs szoftverek fejlesztése</span></div>
+      <div class="fact"><b>3</b><span data-i18n="facts.fields">terület: grafika, web, navigáció</span></div>
     </div>
   </div>
 
@@ -99,21 +99,21 @@
   <section id="rolam" class="section">
     <div class="wrap">
       <div class="sec-head">
-        <span class="label" data-i18n="navAbout">Rólam</span>
-        <h2 data-i18n="aboutH">Kreatív látásmód és technikai szakértelem egy személyben</h2>
+        <span class="label" data-i18n="nav.about">Rólam</span>
+        <h2 data-i18n="about.title">Kreatív látásmód és technikai szakértelem egy személyben</h2>
       </div>
       <div class="about-grid">
         <div class="about-text">
-          <p data-i18n="about1">Szakmai tapasztalatomat a navigációs rendszerek script-alapú programozásában, webalkalmazások és portálok fejlesztésében, valamint nyomdai és multimédiás tartalmak előkészítésében szereztem.</p>
-          <p data-i18n="about2">Pályám során grafikai és fejlesztői feladatokat egyaránt végeztem, ezért egy felület készítésekor a megjelenésre és a működésre egyformán figyelek. Jelenleg React és TypeScript ismereteimet bővítem.</p>
-          <p data-i18n="about3">Szakmai munkámban kiemelt szerepet kap a precizitás, a hatékony kommunikáció, a csapatmunka és az önálló problémamegoldás.</p>
+          <p data-i18n="about.p1">Szakmai tapasztalatomat a navigációs rendszerek script-alapú programozásában, webalkalmazások és portálok fejlesztésében, valamint nyomdai és multimédiás tartalmak előkészítésében szereztem.</p>
+          <p data-i18n="about.p2">Pályám során grafikai és fejlesztői feladatokat egyaránt végeztem, ezért egy felület készítésekor a megjelenésre és a működésre egyformán figyelek. Jelenleg React és TypeScript ismereteimet bővítem.</p>
+          <p data-i18n="about.p3">Szakmai munkámban kiemelt szerepet kap a precizitás, a hatékony kommunikáció, a csapatmunka és az önálló problémamegoldás.</p>
         </div>
         <dl class="spec">
-          <div class="row"><dt data-i18n="specPos">Pozíció</dt><dd>Front-End Developer</dd></div>
-          <div class="row"><dt data-i18n="specLoc">Helyszín</dt><dd data-i18n="location">Gödöllő és Budapest környéke</dd></div>
-          <div class="row"><dt data-i18n="specEdu">Tanulmányok</dt><dd data-i18n="edu">Prompt Számítástechnikai Oktatóközpont<br><small>Gödöllő</small></dd></div>
-          <div class="row"><dt data-i18n="specLang">Nyelvek</dt><dd data-i18n="langs">Magyar <small>· anyanyelvi</small><br>Angol <small>· A2 szintű gyakorlati nyelvismeret</small></dd></div>
-          <div class="row"><dt data-i18n="specLic">Jogosítvány</dt><dd data-i18n="lic">B és C kategória</dd></div>
+          <div class="row"><dt data-i18n="about.spec.position">Pozíció</dt><dd>Front-End Developer</dd></div>
+          <div class="row"><dt data-i18n="about.spec.location">Helyszín</dt><dd data-i18n="about.location">Gödöllő és Budapest környéke</dd></div>
+          <div class="row"><dt data-i18n="about.spec.education">Tanulmányok</dt><dd data-i18n="about.education">Prompt Számítástechnikai Oktatóközpont<br><small>Gödöllő</small></dd></div>
+          <div class="row"><dt data-i18n="about.spec.languages">Nyelvek</dt><dd data-i18n="about.languages">Magyar <small>· anyanyelvi</small><br>Angol <small>· A2 szintű gyakorlati nyelvismeret</small></dd></div>
+          <div class="row"><dt data-i18n="about.spec.license">Jogosítvány</dt><dd data-i18n="about.license">B és C kategória</dd></div>
         </dl>
       </div>
     </div>
@@ -123,12 +123,12 @@
   <section id="szakmai-ut" class="section career">
     <div class="wrap">
       <div class="sec-head">
-        <span class="label" data-i18n="navCareer">Szakmai út</span>
-        <h2 data-i18n="careerH">Grafikától a navigációs szoftverekig</h2>
+        <span class="label" data-i18n="nav.career">Szakmai út</span>
+        <h2 data-i18n="career.title">Grafikától a navigációs szoftverekig</h2>
       </div>
 
       <!-- Útvonal-térkép (SVG). A haladó pontot az <animateMotion> mozgatja végig a #routePath vonalon. -->
-      <figure class="route-map" aria-label="Szakmai útvonal térképen: 1997 grafika, 2003 web, 2008 navigáció, és ma" data-i18n-aria="mapAria">
+      <figure class="route-map" aria-label="Szakmai útvonal térképen: 1997 grafika, 2003 web, 2008 navigáció, és ma" data-i18n-aria="career.map.aria">
         <div class="route-scroll">
           <svg id="mapSvg" viewBox="0 0 800 280" role="img" aria-hidden="true">
             <defs>
@@ -151,16 +151,16 @@
             <use href="#routePath" class="m-center" fill="none" stroke-width="1.5" stroke-dasharray="5 9" stroke-linecap="round"/>
             <!-- állomások -->
             <circle class="m-wp m-wp-a2" cx="60" cy="220" r="9" stroke-width="4"/>
-            <text x="42" y="256"><tspan class="m-label">1997</tspan><tspan class="m-sub" dx="10" data-i18n="mapGfx">Grafika</tspan></text>
+            <text x="42" y="256"><tspan class="m-label">1997</tspan><tspan class="m-sub" dx="10" data-i18n="career.map.design">Grafika</tspan></text>
             <circle class="m-wp m-wp-ink" cx="250" cy="150" r="9" stroke-width="4"/>
             <text x="218" y="122"><tspan class="m-label">2003</tspan><tspan class="m-sub" dx="10">Web</tspan></text>
             <circle class="m-wp m-wp-a1" cx="440" cy="130" r="9" stroke-width="4"/>
-            <text x="424" y="170"><tspan class="m-label">2008</tspan><tspan class="m-sub" dx="10" data-i18n="mapNav">Navigáció</tspan></text>
+            <text x="424" y="170"><tspan class="m-label">2008</tspan><tspan class="m-sub" dx="10" data-i18n="career.map.navigation">Navigáció</tspan></text>
             <!-- cél -->
             <line class="m-pole" x1="730" y1="60" x2="730" y2="22" stroke-width="2"/>
             <path class="m-flag" d="M731 22 h26 l-6 7 6 7 h-26z"/>
             <circle class="m-wp m-wp-a1" cx="730" cy="60" r="6" stroke-width="3"/>
-            <text class="m-label" x="730" y="98" text-anchor="middle" data-i18n="today">Ma</text>
+            <text class="m-label" x="730" y="98" text-anchor="middle" data-i18n="career.map.today">Ma</text>
             <!-- haladó pont -->
             <g>
               <circle class="m-car-ring" r="12" stroke-width="2.5"/>
@@ -175,9 +175,9 @@
           <span class="turn" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V11a4 4 0 0 1 4-4h9"/><path d="m15 3 4 4-4 4"/></svg>
           </span>
-          <span><small data-i18n="panelDist">Megtett út</small><b data-i18n="panelDistV">1997 → ma</b></span>
-          <span><small data-i18n="panelStops">Állomások</small><b data-i18n="panelStopsV">3 munkahely</b></span>
-          <span><small data-i18n="panelDir">Útirány</small><b>React · TypeScript</b></span>
+          <span><small data-i18n="career.panel.distance">Megtett út</small><b data-i18n="career.panel.distanceValue">1997 → ma</b></span>
+          <span><small data-i18n="career.panel.stops">Állomások</small><b data-i18n="career.panel.stopsValue">3 munkahely</b></span>
+          <span><small data-i18n="career.panel.heading">Útirány</small><b>React · TypeScript</b></span>
         </figcaption>
       </figure>
 
@@ -188,49 +188,49 @@
           <div class="when">
             <span class="instr">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/></svg>
-              <span data-i18n="instrNext">Következő célállomás</span>
+              <span data-i18n="career.next.instruction">Következő célállomás</span>
             </span>
-            <span class="years" data-i18n="todayCap">Ma</span>
+            <span class="years" data-i18n="career.next.when">Ma</span>
           </div>
           <div class="what">
-            <div><h3 data-i18n="destH">Modern front-end fejlesztés</h3><span class="company">React · TypeScript</span></div>
-            <p class="dest-text" data-i18n="destText">Tapasztalatomat a mai webes technológiákkal ötvözöm: jelenleg a React és a TypeScript elmélyítésén dolgozom.</p>
+            <div><h3 data-i18n="career.next.title">Modern front-end fejlesztés</h3><span class="company">React · TypeScript</span></div>
+            <p class="dest-text" data-i18n="career.next.text">Tapasztalatomat a mai webes technológiákkal ötvözöm: jelenleg a React és a TypeScript elmélyítésén dolgozom.</p>
           </div>
         </li>
         <li class="job">
           <div class="when">
             <span class="instr">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21V5"/><path d="m6 11 6-6 6 6"/></svg>
-              <span data-i18n="instrHwy">Hajtson fel az autópályára</span>
+              <span data-i18n="career.nng.instruction">Hajtson fel az autópályára</span>
             </span>
             <span class="years">2008 – 2026</span>
-            <span class="span" data-i18n="nngSpan">2008. jan – 2026. szept · 18 év 9 hó</span>
+            <span class="span" data-i18n="career.nng.period">2008. jan – 2026. szept · 18 év 9 hó</span>
           </div>
           <div class="what">
-            <div><h3>Front-End Developer</h3><span class="company" data-i18n="nngCo">NNG Kft. · Budapest</span></div>
+            <div><h3>Front-End Developer</h3><span class="company" data-i18n="career.nng.company">NNG Kft. · Budapest</span></div>
             <ul>
-              <li data-i18n="nng1">GPS-alapú navigációs rendszerek fejlesztése és karbantartása, főként Lua és az objektumorientált, JavaScript-alapú XScript nyelven.</li>
-              <li data-i18n="nng2">A felhasználói felület layout- és grafikai elemeinek tervezése és szerkesztése navigációs szoftverekhez.</li>
-              <li data-i18n="nng3">A fejlesztett tartalmak integrálása autóba épített és mobil platformokra.</li>
-              <li data-i18n="nng4">Verziókövetés GIT, HG és SVN segítségével, csapatmunka agilis fejlesztési környezetben.</li>
+              <li data-i18n="career.nng.item1">GPS-alapú navigációs rendszerek fejlesztése és karbantartása, főként Lua és az objektumorientált, JavaScript-alapú XScript nyelven.</li>
+              <li data-i18n="career.nng.item2">A felhasználói felület layout- és grafikai elemeinek tervezése és szerkesztése navigációs szoftverekhez.</li>
+              <li data-i18n="career.nng.item3">A fejlesztett tartalmak integrálása autóba épített és mobil platformokra.</li>
+              <li data-i18n="career.nng.item4">Verziókövetés GIT, HG és SVN segítségével, csapatmunka agilis fejlesztési környezetben.</li>
             </ul>
-            <div class="tags"><span>Lua</span><span>XScript</span><span>JavaScript</span><span data-i18n="tagUi">UI-layout</span><span>Git · HG · SVN</span></div>
+            <div class="tags"><span>Lua</span><span>XScript</span><span>JavaScript</span><span data-i18n="career.nng.tagUi">UI-layout</span><span>Git · HG · SVN</span></div>
           </div>
         </li>
         <li class="job">
           <div class="when">
             <span class="instr">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20V11a4 4 0 0 1 4-4h9"/><path d="m15 3 4 4-4 4"/></svg>
-              <span data-i18n="instrRight">Forduljon jobbra</span>
+              <span data-i18n="career.inverse.instruction">Forduljon jobbra</span>
             </span>
             <span class="years">2003 – 2007</span>
-            <span class="span" data-i18n="invSpan">2003. jan – 2007. szept · 4 év 9 hó</span>
+            <span class="span" data-i18n="career.inverse.period">2003. jan – 2007. szept · 4 év 9 hó</span>
           </div>
           <div class="what">
-            <div><h3 data-i18n="invH">Internetes Rendszerfejlesztő</h3><span class="company">Inverse Hungary Kft. · Budapest</span></div>
+            <div><h3 data-i18n="career.inverse.title">Internetes Rendszerfejlesztő</h3><span class="company">Inverse Hungary Kft. · Budapest</span></div>
             <ul>
-              <li data-i18n="inv1">Internetes cégrendszerek, vállalati portálok és webáruházak tervezése és fejlesztése.</li>
-              <li data-i18n="inv2">PHP, MySQL, HTML és CSS alapú webalkalmazások az ügyfelek egyedi igényei szerint.</li>
+              <li data-i18n="career.inverse.item1">Internetes cégrendszerek, vállalati portálok és webáruházak tervezése és fejlesztése.</li>
+              <li data-i18n="career.inverse.item2">PHP, MySQL, HTML és CSS alapú webalkalmazások az ügyfelek egyedi igényei szerint.</li>
             </ul>
             <div class="tags"><span>PHP</span><span>MySQL</span><span>HTML</span><span>CSS</span><span>Photoshop</span></div>
           </div>
@@ -239,18 +239,18 @@
           <div class="when">
             <span class="instr">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-              <span data-i18n="instrStart">Indulás</span>
+              <span data-i18n="career.graphics.instruction">Indulás</span>
             </span>
             <span class="years">1997 – 2002</span>
-            <span class="span" data-i18n="gfxSpan">1997. jún – 2002. dec · 5 év 7 hó</span>
+            <span class="span" data-i18n="career.graphics.period">1997. jún – 2002. dec · 5 év 7 hó</span>
           </div>
           <div class="what">
-            <div><h3 data-i18n="gfxH">Grafikus – Szerkesztő</h3><span class="company">Inverse – Graphics Kft. · Budapest</span></div>
+            <div><h3 data-i18n="career.graphics.title">Grafikus – Szerkesztő</h3><span class="company">Inverse – Graphics Kft. · Budapest</span></div>
             <ul>
-              <li data-i18n="gfx1">Kiadványok, plakátok és szóróanyagok nyomdakész kivitelezése.</li>
-              <li data-i18n="gfx2">Nyomdai előkészítés, levilágítás, prezentációs és multimédiás anyagok készítése.</li>
+              <li data-i18n="career.graphics.item1">Kiadványok, plakátok és szóróanyagok nyomdakész kivitelezése.</li>
+              <li data-i18n="career.graphics.item2">Nyomdai előkészítés, levilágítás, prezentációs és multimédiás anyagok készítése.</li>
             </ul>
-            <div class="tags"><span>Photoshop</span><span>AutoCAD</span><span data-i18n="tagPrepress">Nyomdai előkészítés</span></div>
+            <div class="tags"><span>Photoshop</span><span>AutoCAD</span><span data-i18n="career.graphics.tagPrepress">Nyomdai előkészítés</span></div>
           </div>
         </li>
       </ol>
@@ -261,14 +261,14 @@
   <section id="keszsegek" class="section">
     <div class="wrap">
       <div class="sec-head">
-        <span class="label" data-i18n="navSkills">Készségek</span>
-        <h2 data-i18n="skillsH">Technológiák és eszközök</h2>
+        <span class="label" data-i18n="nav.skills">Készségek</span>
+        <h2 data-i18n="skills.title">Technológiák és eszközök</h2>
       </div>
       <div class="skills">
-        <div class="skill"><h3 data-i18n="skScript">Script</h3><ul><li>Lua</li><li>XScript</li><li>JavaScript</li></ul></div>
+        <div class="skill"><h3 data-i18n="skills.script">Script</h3><ul><li>Lua</li><li>XScript</li><li>JavaScript</li></ul></div>
         <div class="skill"><h3>Web</h3><ul><li>HTML</li><li>CSS</li><li>PHP</li><li>MySQL</li></ul></div>
-        <div class="skill"><h3 data-i18n="skGfx">Grafika és verziókezelés</h3><ul><li>Adobe Photoshop</li><li>AutoCAD</li><li>Git, HG, SVN</li></ul></div>
-        <div class="skill learning"><h3 data-i18n="skLearn">Folyamatban lévő képzések</h3><ul><li>React</li><li>TypeScript</li></ul></div>
+        <div class="skill"><h3 data-i18n="skills.graphics">Grafika és verziókezelés</h3><ul><li>Adobe Photoshop</li><li>AutoCAD</li><li>Git, HG, SVN</li></ul></div>
+        <div class="skill learning"><h3 data-i18n="skills.training">Folyamatban lévő képzések</h3><ul><li>React</li><li>TypeScript</li></ul></div>
       </div>
     </div>
   </section>
@@ -277,24 +277,24 @@
   <section id="kapcsolat" class="contact">
     <div class="wrap">
       <div>
-        <span class="label" data-i18n="navContact">Kapcsolat</span>
-        <h2 data-i18n="contactH">Vegye fel velem a <em>kapcsolatot</em></h2>
-        <p data-i18n="contactP">Ha együttműködésben gondolkodik, vagy kérdése van, e-mailben vagy a LinkedInen ér el a legkönnyebben.</p>
+        <span class="label" data-i18n="nav.contact">Kapcsolat</span>
+        <h2 data-i18n="contact.title">Vegye fel velem a <em>kapcsolatot</em></h2>
+        <p data-i18n="contact.text">Ha együttműködésben gondolkodik, vagy kérdése van, e-mailben vagy a LinkedInen ér el a legkönnyebben.</p>
       </div>
       <ul class="channels">
         <li class="channel">
-          <small data-i18n="chEmail">E-mail</small>
+          <small data-i18n="contact.email">E-mail</small>
           <a class="val" id="email" href="mailto:fdgeza@gmail.com">fdgeza@gmail.com</a>
-          <button class="mini" id="copyBtn" type="button" data-i18n="copy">Másolás</button>
+          <button class="mini" id="copyBtn" type="button" data-i18n="ui.copy">Másolás</button>
         </li>
         <li class="channel">
           <small>LinkedIn</small>
           <span class="val">géza-fodor-351820300</span>
-          <a class="mini" href="https://www.linkedin.com/in/g%C3%A9za-fodor-351820300" target="_blank" rel="noopener" data-i18n="open">Megnyitás</a>
+          <a class="mini" href="https://www.linkedin.com/in/g%C3%A9za-fodor-351820300" target="_blank" rel="noopener" data-i18n="ui.open">Megnyitás</a>
         </li>
         <li class="channel">
-          <small data-i18n="specLoc">Helyszín</small>
-          <span class="val" data-i18n="location">Gödöllő és Budapest környéke</span>
+          <small data-i18n="about.spec.location">Helyszín</small>
+          <span class="val" data-i18n="about.location">Gödöllő és Budapest környéke</span>
         </li>
       </ul>
     </div>
@@ -304,13 +304,12 @@
 <!-- ============ LÁBLÉC ============ -->
 <footer>
   <div class="wrap">
-    <span>© 2026 <span data-i18n="name">Fodor Géza</span></span>
+    <span>© 2026 <span data-i18n="header.name">Fodor Géza</span></span>
     <span>Front-End Developer</span>
   </div>
 </footer>
 
-<!-- Szkriptek: előbb a szótár, utána az oldal működése (ez használja a szótárat) -->
-<script src="js/i18n.js"></script>
+<!-- Az oldal működése; a szótárakat (data/i18n/*.json) ez tölti be -->
 <script src="js/main.js"></script>
 </body>
 </html>
